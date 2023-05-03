@@ -1,14 +1,13 @@
 import importlib
 from common import utils
 
-# TODO Rename the package
-utils.unload_packages(silent=True, package="template")
-importlib.import_module("template")
-# TODO rename app
-from template.MayaTool import MayaTool
+utils.unload_packages(silent=True, package="unknown_node_scanner")
+importlib.import_module("unknown_node_scanner")
+
+from unknown_node_scanner.UnknownNodeScanner import UnknownNodeScanner
 try:
-    app.close()
+    unknown_node_scanner.close()
 except:
     pass
-app = MayaTool()
-app.show()
+unknown_node_scanner = UnknownNodeScanner()
+unknown_node_scanner.show()
