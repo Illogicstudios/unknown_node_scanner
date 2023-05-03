@@ -25,15 +25,15 @@ from .Reference import Reference
 
 # ######################################################################################################################
 
-_FILE_NAME_PREFS = "unknown_node_scanner"
+_FILE_NAME_PREFS = "unknown_plugin_scanner"
 
 # ######################################################################################################################
 
 
-class UnknownNodeScanner(QDialog):
+class UnknownPluginScanner(QDialog):
 
     def __init__(self, prnt=wrapInstance(int(omui.MQtUtil.mainWindow()), QWidget)):
-        super(UnknownNodeScanner, self).__init__(prnt)
+        super(UnknownPluginScanner, self).__init__(prnt)
 
         # Common Preferences (common preferences on all tools)
         self.__common_prefs = Prefs()
@@ -58,7 +58,7 @@ class UnknownNodeScanner(QDialog):
         self.__retrieve_prefs()
 
         # name the window
-        self.setWindowTitle("Unknown Node Scanner")
+        self.setWindowTitle("Unknown Plugin Scanner")
         # make the window a "tool" in Maya's eyes so that it stays on top when you click off
         self.setWindowFlags(QtCore.Qt.Tool)
         # Makes the object get deleted from memory, not just hidden, when it is closed.
@@ -107,7 +107,7 @@ class UnknownNodeScanner(QDialog):
         self.setLayout(main_lyt)
 
         self.__ui_scan_btn = QPushButton("Scan referenced files for Unknown Node")
-        self.__ui_scan_btn.clicked.connect(self.__scan_for_unknown_nodes)
+        self.__ui_scan_btn.clicked.connect(self.__scan_for_unknown_plugins)
         main_lyt.addWidget(self.__ui_scan_btn)
 
         self.__progress_bar = QProgressBar()
@@ -142,10 +142,10 @@ class UnknownNodeScanner(QDialog):
                 item = QTreeWidgetItem([ref.get_name()])
                 item.setData(0, Qt.UserRole, ref)
                 self.__ui_tree_refs.addTopLevelItem(item)
-                ukn_nodes = ref.get_unknown_node_names()
-                if len(ukn_nodes)>0:
-                    for ukn_node in ukn_nodes:
-                        child = QTreeWidgetItem([ukn_node])
+                ukn_plugins = ref.get_unknown_plugin_names()
+                if len(ukn_plugins)>0:
+                    for ukn_plugin in ukn_plugins:
+                        child = QTreeWidgetItem([ukn_plugin])
                         child.setData(0, Qt.UserRole, ref)
                         item.addChild(child)
                 else:
@@ -177,7 +177,7 @@ class UnknownNodeScanner(QDialog):
             self.__current_path = items[0].data(0,Qt.UserRole).get_filepath()
         self.__refresh_line_edit()
 
-    def __scan_for_unknown_nodes(self):
+    def __scan_for_unknown_plugins(self):
         self.__progress_value = 1
         self.__refresh_progress_bar()
         with self.__refreshing_lock:
@@ -211,6 +211,8 @@ class UnknownNodeScanner(QDialog):
                 pass
 
         try:
+            self.__progress_value = 100
+            self.__refresh_progress_bar()
             with self.__refreshing_lock:
                 self.__ui_scan_btn.setDisabled(False)
         except:

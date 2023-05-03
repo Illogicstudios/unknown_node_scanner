@@ -11,7 +11,7 @@ try:
         data = {
             "name": name,
             "filepath": path,
-            "unknown_node_names": [str(node) for node in unknown_plugins],
+            "unknown_plugin_names": [str(node) for node in unknown_plugins],
         }
         print(msg_result+" "+json.dumps(data))
 except Exception as e:

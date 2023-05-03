@@ -9,7 +9,7 @@ class Reference:
         elif data is not None:
             self.__name = data["name"]
             self.__filepath = data["filepath"]
-            self.__unknown_node_names = data["unknown_node_names"]
+            self.__unknown_node_names = data["unknown_plugin_names"]
 
     def get_name(self):
         return self.__name
@@ -17,5 +17,5 @@ class Reference:
     def get_filepath(self):
         return self.__filepath
 
-    def get_unknown_node_names(self):
+    def get_unknown_plugin_names(self):
         return self.__unknown_node_names

@@ -1,13 +1,13 @@
 import importlib
 from common import utils
 
-utils.unload_packages(silent=True, package="unknown_node_scanner")
-importlib.import_module("unknown_node_scanner")
+utils.unload_packages(silent=True, package="unknown_plugin_scanner")
+importlib.import_module("unknown_plugin_scanner")
 
-from unknown_node_scanner.UnknownNodeScanner import UnknownNodeScanner
+from unknown_plugin_scanner.UnknownPluginScanner import UnknownPluginScanner
 try:
-    unknown_node_scanner.close()
+    unknown_plugin_scanner.close()
 except:
     pass
-unknown_node_scanner = UnknownNodeScanner()
-unknown_node_scanner.show()
+unknown_plugin_scanner = UnknownPluginScanner()
+unknown_plugin_scanner.show()
